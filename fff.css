@@ -1,0 +1,130 @@
+/* Estilos generales para el cuerpo de la página */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    color: #fff;
+    background: linear-gradient(135deg, #ff6f61, #d4a5a5, #c9ada7, #ff9a8b);
+    background-size: 600% 600%;
+    animation: gradientBG 10s ease infinite;
+    text-align: center;
+}
+
+/* Animación para el fondo degradado */
+@keyframes gradientBG {
+    0% { background-position: 0% 0%; }
+    50% { background-position: 100% 100%; }
+    100% { background-position: 0% 0%; }
+}
+
+/* Estilo para el contenedor principal */
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 20px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+    transform: perspective(1200px) rotateX(10deg) rotateY(-10deg);
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.container:hover {
+    transform: perspective(1200px) rotateX(0deg) rotateY(0deg) scale(1.05);
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.7);
+}
+
+/* Estilo para los encabezados */
+h1, h2, h3 {
+    color: #ffeb3b;
+    margin: 0 0 20px 0;
+    font-family: 'Roboto', sans-serif;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+}
+
+/* Efecto de subrayado animado en los encabezados */
+h1::after, h2::after, h3::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 4px;
+    background: #ffeb3b;
+    transform: translateX(-100%);
+    transition: transform 0.4s ease;
+}
+
+h1:hover::after, h2:hover::after, h3:hover::after {
+    transform: translateX(0);
+}
+
+/* Estilo para los párrafos */
+p {
+    font-size: 1.2em;
+    line-height: 1.8;
+    margin: 0 0 20px 0;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    animation: fadeIn 2s ease-out;
+}
+
+/* Animación de desvanecimiento para los párrafos */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Estilo para los botones */
+button {
+    background: linear-gradient(45deg, #ff8a65, #ff7043);
+    color: #fff;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1.2em;
+    text-transform: uppercase;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+    transition: background 0.4s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+    background: linear-gradient(45deg, #ff7043, #ff8a65);
+    transform: scale(1.1) rotate(-3deg);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+}
+
+button:active {
+    background: linear-gradient(45deg, #e64a19, #d84315);
+    transform: scale(1.05) rotate(0deg);
+}
+
+/* Estilo para enlaces */
+a {
+    color: #ffeb3b;
+    text-decoration: none;
+    font-weight: bold;
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+}
+
+/* Efecto de subrayado animado en los enlaces */
+a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: #ffeb3b;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+a:hover::after {
+    transform: scaleX(1);
+}

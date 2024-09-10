@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="ttt.css">
+</head>
+<body>
+
+<section id="como-ayudar">
+    <h2>¿Cómo Puede Ayudar?</h2>
+    <p>Nuestra página ofrece una variedad de recursos para apoyar a las familias:</p>
+    <ul>
+        <li><strong>Artículos y Consejos:</strong> Encuentra artículos útiles y consejos prácticos para enfrentar desafíos familiares.</li>
+        <li><strong>Foro de Ayuda:</strong> Participa en nuestro foro para compartir tus experiencias y obtener apoyo de otros.</li>
+        <li><strong>Historias Inspiradoras:</strong> Lee y comparte historias que puedan inspirar y motivar a otros.</li>
+    </ul>
+    <h3>Cómo Participar</h3>
+    <p>Para contribuir, puedes:</p>
+    <ul>
+        <li>Enviar tus historias para ser publicadas en nuestro sitio.</li>
+        <li>Participar en discusiones y ofrecer apoyo en nuestro foro.</li>
+        <li>Voluntariar para ayudarnos a mejorar nuestros recursos.</li>
+    </ul>
+    <h3>Beneficios</h3>
+    <p>Estos recursos están diseñados para:</p>
+    <ul>
+        <li>Brindar apoyo emocional y práctico.</li>
+        <li>Fomentar un sentido de comunidad y pertenencia.</li>
+        <li>Proveer herramientas y consejos útiles para superar desafíos.</li>
+    </ul>
+    
+    <h3>Comparte Tu Historia</h3>
+    <form id="compartir-historia-form">
+        <label for="nombre">Tu Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required><br><br>
+
+        <label for="email">Tu Correo Electrónico:</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="historia">Tu Historia:</label><br>
+        <textarea id="historia" name="historia" rows="5" cols="40" placeholder="Escribe tu historia aquí..." required></textarea><br><br>
+
+        <input type="submit" value="Guardar Historia">
+    </form>
+
+    <script>
+        // Función para mostrar notificación
+        function mostrarNotificacion(titulo, mensaje, icono) {
+            if (Notification.permission === 'granted') {
+                new Notification(titulo, {
+                    body: mensaje,
+                    icon: icono
+                });
+            } else if (Notification.permission === 'default') {
+                Notification.requestPermission().then(permission => {
+                    if (permission === 'granted') {
+                        new Notification(titulo, {
+                            body: mensaje,
+                            icon: icono
+                        });
+                    }
+                });
+            }
+        }
+
+        document.getElementById('compartir-historia-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevenir el envío del formulario
+
+            var nombre = document.getElementById('nombre').value;
+            var email = document.getElementById('email').value;
+            var historia = document.getElementById('historia').value;
+
+            if (nombre && email && historia) {
+                // Guardar en localStorage
+                localStorage.setItem('nombre', nombre);
+                localStorage.setItem('email', email);
+                localStorage.setItem('historia', historia);
+
+                // Mostrar notificación de éxito
+                mostrarNotificacion('Éxito', 'Tu historia ha sido guardada localmente. ¡Gracias por compartir!', 'icon-success.png');
+
+                // Limpiar el formulario
+                document.getElementById('compartir-historia-form').reset();
+
+                // Mostrar alerta de éxito
+                alert('Tu historia ha sido guardada localmente. ¡Gracias por compartir!');
+            } else {
+                // Mostrar notificación de advertencia
+                mostrarNotificacion('Advertencia', 'Por favor, completa todos los campos antes de guardar.', 'icon-warning.png');
+
+                // Mostrar alerta de advertencia
+                alert('Por favor, completa todos los campos antes de guardar.');
+            }
+        });
+
+        // Opcional: Cargar la historia guardada cuando se recarga la página
+        window.onload = function() {
+            var historiaGuardada = localStorage.getItem('historia');
+            if (historiaGuardada) {
+                document.getElementById('historia').value = historiaGuardada;
+            }
+        }
+    </script>
+</section>
+
+</body>
+</html>

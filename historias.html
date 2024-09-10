@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historias Compartidas</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: #f0f2f5;
+            color: #333;
+        }
+        #mostrar-historias {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .historia {
+            background: #ffffff;
+            border: 1px solid #e0e0e0;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .historia h3 {
+            margin-top: 0;
+            color: #007bff;
+            font-size: 1.5em;
+        }
+        .historia p {
+            margin: 5px 0;
+        }
+        .comentarios {
+            margin-top: 20px;
+            border-top: 2px solid #007bff;
+            padding-top: 15px;
+        }
+        .comentarios h4 {
+            margin: 0;
+            font-size: 18px;
+            color: #007bff;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+        }
+        .comentario {
+            background: #ffffff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            position: relative;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .comentario p {
+            margin: 0;
+            font-size: 16px;
+        }
+        .comentario .texto {
+            font-size: 16px;
+            color: #333;
+        }
+        .comentario .texto span {
+            font-weight: bold;
+            color: #ff5722; /* Color de texto para comentarios */
+        }
+        .comentario .respuesta {
+            background: #e0f7fa;
+            border: 1px solid #b2ebf2;
+            padding: 10px;
+            margin: 10px 0 0 20px;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            color: #00796b; /* Color de texto para respuestas */
+            font-size: 14px;
+        }
+        .comentario .respuesta p {
+            margin: 0;
+        }
+        .comentario .respuesta span {
+            font-weight: bold;
+            color: #004d40; /* Color para el texto destacado en respuestas */
+        }
+        .comentario .respuesta-form {
+            margin-top: 15px;
+        }
+        .comentario-form, .respuesta-form {
+            display: flex;
+            flex-direction: column;
+        }
+        .comentario-form textarea, .respuesta-form textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            resize: vertical;
+            margin-bottom: 10px;
+            transition: border-color 0.3s ease;
+        }
+        .comentario-form textarea:focus, .respuesta-form textarea:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+        .comentario-form input[type="submit"], .respuesta-form input[type="submit"] {
+            align-self: flex-end;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            background: #007bff;
+            color: #ffffff;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s ease;
+        }
+        .comentario-form input[type="submit"]:hover, .respuesta-form input[type="submit"]:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<section id="mostrar-historias">
+    <h2>Historias Compartidas</h2>
+
+    <!-- Ejemplo de historia compartida -->
+    <div class="historia" id="historia-1">
+        <h3>Nombre del Usuario 1</h3>
+        <p><strong>Email:</strong> usuario1@example.com</p>
+        <p>Esta es una historia compartida de ejemplo. Puedes agregar más historias en esta sección.</p>
+        
+        <!-- Sección de comentarios -->
+        <div class="comentarios">
+            <h4>Comentarios:</h4>
+            <!-- Comentarios se agregarán aquí -->
+        </div>
+
+        <div class="comentario-form">
+            <textarea id="comentario-input-1" placeholder="Escribe tu comentario aquí..." required></textarea>
+            <input type="submit" value="Comentar" onclick="addComment('historia-1')">
+        </div>
+    </div>
+
+    <div class="historia" id="historia-2">
+        <h3>Nombre del Usuario 2</h3>
+        <p><strong>Email:</strong> usuario2@example.com</p>
+        <p>Aquí hay otra historia compartida. Puedes agregar detalles adicionales y modificar el contenido según sea necesario.</p>
+        
+        <!-- Sección de comentarios -->
+        <div class="comentarios">
+            <h4>Comentarios:</h4>
+            <!-- Comentarios se agregarán aquí -->
+        </div>
+
+        <div class="comentario-form">
+            <textarea id="comentario-input-2" placeholder="Escribe tu comentario aquí..." required></textarea>
+            <input type="submit" value="Comentar" onclick="addComment('historia-2')">
+        </div>
+    </div>
+
+    <!-- Agrega más historias aquí -->
+    
+</section>
+
+<script>
+    let comentarioCount = 0; // Contador para generar IDs únicos de comentarios
+
+    // Función para agregar un comentario
+    function addComment(historiaId) {
+        const comentarioInput = document.getElementById(`comentario-input-${historiaId.split('-')[1]}`);
+        const comentarioText = comentarioInput.value.trim();
+        if (comentarioText) {
+            comentarioCount++;
+            // Crear un nuevo elemento de comentario
+            const comentarioElement = document.createElement('div');
+            comentarioElement.classList.add('comentario');
+            comentarioElement.id = `comentario-${comentarioCount}`;
+            comentarioElement.innerHTML = `
+                <p class="texto"><span>Comentario:</span> ${comentarioText}</p>
+                <div class="respuesta-form">
+                    <textarea placeholder="Escribe tu respuesta aquí..."></textarea>
+                    <input type="submit" value="Responder" onclick="addReply('${comentarioCount}')">
+                </div>
+                <div class="respuestas"></div>
+            `;
+
+            // Agregar el comentario a la sección de comentarios de la historia correspondiente
+            const historiaElement = document.getElementById(historiaId);
+            const comentariosDiv = historiaElement.querySelector('.comentarios');
+            comentariosDiv.appendChild(comentarioElement);
+
+            // Limpiar el campo de entrada
+            comentarioInput.value = '';
+        }
+    }
+
+    // Función para agregar una respuesta a un comentario
+    function addReply(comentarioId) {
+        const comentarioElement = document.getElementById(`comentario-${comentarioId}`);
+        const respuestaInput = comentarioElement.querySelector('.respuesta-form textarea');
+        const respuestaText = respuestaInput.value.trim();
+        if (respuestaText) {
+            // Crear un nuevo elemento de respuesta
+            const respuestaElement = document.createElement('div');
+            respuestaElement.classList.add('respuesta');
+            respuestaElement.innerHTML = `<p><span>Respuesta:</span> ${respuestaText}</p>`;
+
+            // Agregar la respuesta al comentario
+            const respuestasDiv = comentarioElement.querySelector('.respuestas');
+            respuestasDiv.appendChild(respuestaElement);
+
+            // Limpiar el campo de entrada
+            respuestaInput.value = '';
+        }
+    }
+</script>
+
+</body>
+</html>
